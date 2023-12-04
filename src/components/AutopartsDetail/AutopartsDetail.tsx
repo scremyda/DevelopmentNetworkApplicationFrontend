@@ -1,0 +1,112 @@
+import {FC, useEffect, useState} from 'react';
+import {useParams, useNavigate} from 'react-router-dom';
+import {IAutopart, mockAutoparts} from '../../models/models.ts';
+import './AutopartsCard.css'
+
+interface AutopartDetailProps {
+    setPage: (name: string, id: number) => void
+}
+
+const AutopartsDetail: FC<AutopartDetailProps> = ({setPage}) => {
+    const params = useParams();
+    const [autopart, setAutopart] = useState<IAutopart | null>(null);
+    const navigate = useNavigate();
+
+    // const handleDelete = () => {
+    //     navigate('/autoparts');
+    //     DeleteData()
+    //         .then(() => {
+    //             console.log(`Autopart with ID ${autopart?.autopart_id} successfully deleted.`);
+    //         })
+    //         .catch(error => {
+    //             console.error(`Failed to delete autopart with ID ${autopart?.autopart_id}: ${error}`);
+    //             navigate('/autoparts');
+    //         });
+    // }
+
+    // const DeleteData = async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:8080/api/autoparts', {
+    //             method: 'DELETE',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
+    //
+    //         if (response.status === 200) {
+    //             console.log('Autopart успешно удален');
+    //             window.location.reload();
+    //         } else {
+    //             console.error('Произошла ошибка при удалении autopart');
+    //         }
+    //
+    //     } catch (error) {
+    //         console.error('Произошла ошибка сети', error);
+    //     }
+    // }
+
+    const BackHandler = () => {
+        navigate('/autoparts');
+    }
+
+    useEffect(() => {
+        fetchAutopart()
+            .catch((err) => {
+                console.error(err);
+                const previewID = params.id !== undefined ? parseInt(params.id, 10) - 1 : 0;
+                const mockAutopart = mockAutoparts[previewID]
+                setPage(mockAutopart.name ?? "Без названия", mockAutopart.autopart_id)
+                setAutopart(mockAutopart);
+            });
+
+    }, [params.id]);
+
+    async function fetchAutopart() {
+        try {
+            const response = await fetch(`http://localhost:8080/api/autoparts/${params.autopart_id}`);
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            setPage(data.autopart?.name ?? "Без названия", data.autopart.autopart_id)
+            setAutopart(data.autopart);
+        } catch (error) {
+            console.error('Error fetching autopart data', error);
+            throw error;
+        }
+    }
+
+
+    if (!autopart) {
+        return <div>Loading...</div>;
+    }
+
+    return (
+        !autopart
+            ? <div>Loading...</div>
+            : <div className="autopart-card-body">
+                <div className="card-container">
+                    <h3>{autopart?.name}</h3>
+                    <img
+                        className="round"
+                        src={autopart?.image || '/default.jpg'}
+                        alt={autopart?.name}
+                    />
+                    <p>Бренд: {autopart?.brand}</p>
+                    <p>Модель: {autopart?.model}</p>
+                    <p>Год: {autopart?.year}</p>
+                    <p>Цена: {autopart?.price} Руб.</p>
+                    <p>Описание: {autopart?.description}</p>
+                    <div className="buttons">
+                        <button className="primary" onClick={BackHandler}>Назад</button>
+                        <div></div>
+                        <button className="primary ghost">Добавить</button>
+                    </div>
+                </div>
+            </div>
+    );
+};
+
+export default AutopartsDetail;
