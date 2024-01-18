@@ -1,0 +1,23 @@
+/* BreadCrumbs.css */
+
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-item-2 {
+    margin-right: 5px; /* Расстояние между элементами, если нужно */
+}
+
+.breadcrumb-item-2 a {
+    text-decoration: none;
+}
+
+.breadcrumb-item-2 a:hover {
+    color: #007bff; /* Новый цвет при наведении */
+}
+
+.breadcrumb-item-2:not(:last-child)::after {
+    content: '>'; /* Символ ">" после каждой ссылки, кроме последней */
+    margin-left: 5px; /* Расстояние между символом и следующей ссылкой */
+}

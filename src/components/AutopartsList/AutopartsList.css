@@ -1,0 +1,12 @@
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 8%;
+}
+
+body {
+    background-color: #c9c2c2;
+            /*#18181B;*/
+}
