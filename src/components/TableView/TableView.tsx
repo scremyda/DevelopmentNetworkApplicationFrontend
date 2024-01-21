@@ -49,12 +49,12 @@ const TableView: FC<TableViewProps> = ({autopartAssembly, status, setPage, assem
                         <td className="text-center">
                             {status == "черновик" && (
                                 <>
-                                    <button className="btn btn-sm btn-primary"
+                                    <button className="btn btn-sm btn-light"
                                             onClick={() => handleCountChangeMinus(item.id, item.count)}>
                                         -
                                     </button>
                                     <span className="mx-2">{item.count + 1}</span>
-                                    <button className="btn btn-sm btn-primary"
+                                    <button className="btn btn-sm btn-light"
                                             onClick={() => handleCountChangePlus(item.id, item.count)}>
                                         +
                                     </button>

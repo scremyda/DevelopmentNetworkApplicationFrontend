@@ -1,5 +1,5 @@
 body {
-    color: #fff;
+    color: #000000;
     text-align: center;
 }
 
@@ -18,7 +18,7 @@ body {
     display: flex;
     color: white;
     flex-direction: column; /* Updated to column layout */
-    background-color: #000d31;
+    background-color: #000000;
             /*#000000;*/
 }
 
@@ -108,7 +108,14 @@ body {
     margin-bottom: 10px;
 }
 
-.table-tenders {
+.mb-3 {
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+
+.table-assemblys {
     width: calc(100% - 160px);
     margin-left: 80px;
     margin-right: 80px;

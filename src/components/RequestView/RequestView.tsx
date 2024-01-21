@@ -33,7 +33,7 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
     const [endDate, setEndDate] = useState<Date | null>(null);
     const [selectedStatus, setSelectedStatus] = useState<string>('');
     const role = Cookies.get('role')
-    const [filteredTenders, setFilteredTenders] = useState<IAssembly[] | null>(null);
+    const [filteredAssemblies, setFilteredAssemblies] = useState<IAssembly[] | null>(null);
     const [filteredByUsers, setFilteredUsers] = useState<IAssembly[] | null>(null);
     const [textValue, setTextValue] = useState<string>('');
 
@@ -107,7 +107,7 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
 
         if (assembly) {
             const d = assembly.assembly.filter(obj => isDateInRange(obj.creation_date))
-            setFilteredTenders(d)
+            setFilteredAssemblies(d)
         }
     }
 
@@ -205,8 +205,8 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
                                 </>
                             }
 
-                            <Button style={{ width: '100%' }} className='mt-2' onClick={handleFilter}>Применить фильтры</Button>
-                            <Button variant="outline-danger" style={{ width: '100%' }} className='mt-2' onClick={resetFilter}>Сбросить фильтры</Button>
+                            <Button style={{ width: '100%' }} variant="outline-dark"  onClick={handleFilter}>Применить фильтры</Button>
+                            <Button variant="outline-dark" style={{ width: '100%' }} className='mt-2' onClick={resetFilter}>Сбросить фильтры</Button>
                         </div>
                     </Col>
                 </Row>
@@ -233,8 +233,8 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {filteredTenders && role == '0'
-                        ? filteredTenders.map((assembly) => (
+                    {filteredAssemblies && role == '0'
+                        ? filteredAssemblies.map((assembly) => (
                             <tr key={assembly.id} onClick={(event) => clickCell(assembly.id, event)}>                                {/*<td>{assembly.id}</td>*/}
                                 <td>{assembly.assembly_name || 'Не задано'}</td>
                                 <td>{assembly.status_check || 'Не рассмотрен'}</td>
@@ -263,7 +263,7 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
 
                                         <div className='my-3'
                                              style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                                            <Button variant="outline-warning" onClick={() => handlerApprove(assembly.id)}
+                                            <Button variant="outline-success" onClick={() => handlerApprove(assembly.id)}
                                                     className='mb-2'>
                                                 Завершить
                                             </Button>

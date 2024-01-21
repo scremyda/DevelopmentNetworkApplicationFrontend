@@ -80,7 +80,7 @@ const AssemblyCard: FC<TenderCardProps> = ({setPage}) => {
                                 <input
                                     type="text"
                                     id="assemblyNameInput"
-                                    className="form-control bg-black text-white"
+                                    className="form-control bg-light text-dark"
                                     value={assemblyName === "$" ? singleAssembly.assembly_name : assemblyName}
                                     onChange={(e) => setAssemblyName(e.target.value)}
                                     style={{ marginBottom: '20px' }}
@@ -128,7 +128,7 @@ const AssemblyCard: FC<TenderCardProps> = ({setPage}) => {
                                 <div style={{flex: 1}}>
                                     <button
                                         type="button"
-                                        className="btn btn-outline-light"
+                                        className="btn btn-outline-dark"
                                         onClick={() => handleMakeRequest(singleAssembly.id)}
                                     >
                                         Сформировать

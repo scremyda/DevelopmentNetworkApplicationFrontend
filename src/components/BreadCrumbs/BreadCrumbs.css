@@ -7,14 +7,16 @@
 
 .breadcrumb-item-2 {
     margin-right: 5px; /* Расстояние между элементами, если нужно */
+    color: #000000;
 }
 
 .breadcrumb-item-2 a {
     text-decoration: none;
+    color: #000000;
 }
 
 .breadcrumb-item-2 a:hover {
-    color: #007bff; /* Новый цвет при наведении */
+    color: #87878a; /* Новый цвет при наведении */
 }
 
 .breadcrumb-item-2:not(:last-child)::after {

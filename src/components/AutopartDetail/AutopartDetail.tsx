@@ -38,7 +38,7 @@ const AutopartDetail: FC<AutopartDetailProps> = ({setPage}) => {
                     <h6>Статус: {autopart?.status}</h6>
                     <p>Описание: {autopart?.description}</p>
                     <div className="buttons">
-                        <button className="btn btn-primary" onClick={BackHandler}>Назад</button>
+                        <button className="btn btn-outline-dark" onClick={BackHandler}>Назад</button>
                     </div>
                 </div>
             </div>}

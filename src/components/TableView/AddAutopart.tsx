@@ -110,7 +110,7 @@ const CreateAutopartPage: FC<AddCompanyProps> = ({setPage}) => {
                                 />
                             </Form.Group>
 
-                            <Button variant="primary" type="submit" style={{marginTop: '30px'}} onClick={save}>
+                            <Button variant="dark" type="submit" style={{marginTop: '30px'}} onClick={save}>
                                 Создать
                             </Button>
                         </Form>

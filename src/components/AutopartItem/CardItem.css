@@ -26,12 +26,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid rgba(255, 255, 255, 0.66);
-    background: #3c97bf;
-    border-radius: 15px 15px 20px 20px;
+    border: 2px solid rgba(255,255,255,.66);
+    background: #000000;
     text-align: center;
-    color: #ffffff;
-    font-family: "New Century Schoolbook", "TeX Gyre Schola", serif;
+    color: #fff;
     font-size: 27px;
     white-space: nowrap;
     overflow: hidden;
@@ -40,7 +38,7 @@
 
 .card-city-item:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 14px rgba(38, 190, 239, 0.8);
+    box-shadow: #000000;
 }
 
 .card-city-item:hover .photo {

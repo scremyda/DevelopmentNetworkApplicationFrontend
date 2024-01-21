@@ -25,15 +25,6 @@ export const autopartSlice = createSlice({
     name: 'autopart',
     initialState,
     reducers: {
-        increase(state) {
-            state.count += 1000
-        },
-        minus(state) {
-            state.count = state.count == 0 ? 0 :  state.count - 1000
-        },
-        reset(state) {
-            state.count = 0
-        },
         autopartsFetching(state) {
             state.isLoading = true
             state.error = ''

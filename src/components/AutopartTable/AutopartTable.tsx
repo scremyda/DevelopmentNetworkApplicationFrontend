@@ -28,7 +28,7 @@ const AutopartTable: FC<AutopartTableProps> = ({setPage}) => {
 
             <Nav className="ms-2">
                 <Nav.Item>
-                    <Link to="/add-autopart-2" className="btn btn-outline-primary mt-2"
+                    <Link to="/add-autopart-2" className="btn btn-outline-dark mt-2"
                           style={{marginLeft: '80px', marginBottom: '30px'}}>
                         Добавить автозапчасть
                     </Link>

@@ -15,9 +15,6 @@ export const progressSlice = createSlice({
         setSearch(state, action: PayloadAction<string>) {
             state.searchValue = action.payload
         },
-        resetSearch(state) {
-            state.searchValue = ''
-        },
     },
 })
 

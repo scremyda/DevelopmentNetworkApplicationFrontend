@@ -151,7 +151,7 @@ const AutopartTableCell: FC<AutopartTableCellProps> = ({autopartData}) => {
                          style={{width: '200px'}}/>
                 }</td>
                 <div className='my-3' style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <Button variant="outline-warning" onClick={handleEditClick} className='mb-2'>
+                    <Button variant="outline-success" onClick={handleEditClick} className='mb-2'>
                         Редактировать
                     </Button>
 
