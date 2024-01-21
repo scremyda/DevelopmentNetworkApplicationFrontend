@@ -3,12 +3,14 @@ import autopartReducer from "./reducers/AutopartSlice.ts"
 import assemblyReducer from "./reducers/AssemblySlice.ts"
 import userReducer from "./reducers/UserSlice.ts"
 import progressReducer from "./reducers/ProgressData.ts";
+import searchReducer from "./reducers/SearchSlice.ts"
 
 const rootReducer = combineReducers({
     autopartReducer,
     assemblyReducer,
     userReducer,
-    progressReducer
+    progressReducer,
+    searchReducer
 })
 
 export const setupStore = () => {

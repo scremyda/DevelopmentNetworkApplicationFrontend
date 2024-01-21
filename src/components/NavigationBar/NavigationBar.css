@@ -3,9 +3,11 @@
     padding-left: 8px;
     padding-right: 8px;
     display: flex;
+    color: #ffffff;
     align-items: center;
     border: 2px solid #ffffff; /* Example contrasting border color */
     height: 40px;
+    margin-left: 40px;
 }
 
 .avatar-container img {

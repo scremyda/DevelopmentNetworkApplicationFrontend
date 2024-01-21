@@ -10,7 +10,7 @@ import LoadAnimation from "../Popup/MyLoaderComponents.tsx";
 import MyComponent from "../Popup/Popover.tsx";
 import Cookies from "js-cookie";
 import {userSlice} from "../../store/reducers/UserSlice.ts";
-// import {FormLabel} from "react-bootstrap";
+import {FormLabel} from "react-bootstrap";
 import './NavigationBar.css'
 // import {defaultImage} from "../../models/models.ts";
 import {progressSlice} from "../../store/reducers/ProgressData.ts";
@@ -24,6 +24,7 @@ const NavigationBar = () => {
     const jwtToken = Cookies.get('jwtToken')
     const {draftID} = useAppSelector(state => state.autopartReducer)
     const navigate = useNavigate()
+    const userName = Cookies.get('userName')
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -68,21 +69,6 @@ const NavigationBar = () => {
                                 </Link>
                             </Nav.Item>
                         </Nav>
-                            <Form onSubmit={handleSearch} className="d-flex">
-                                <FormControl
-                                    id={'search-text-field'}
-                                    type="text"
-                                    name="search"
-                                    placeholder="Поиск автозапчастей"
-                                    className="me-2"
-                                    aria-label="Search"
-                                />
-
-                                <Button type="submit" variant="outline-light">
-                                    Поиск
-                                </Button>
-
-                            </Form>
                         {jwtToken ? (
                             <>
 
@@ -108,6 +94,11 @@ const NavigationBar = () => {
                                         />
                                     </Nav.Item>
                                 </Nav>
+                                <div className="avatar-container d-flex align-items-center">
+                                    <Nav.Item className="mx-2 mt-2">
+                                        <FormLabel>Имя пользователя: {userName || 'Не задано'}</FormLabel>
+                                    </Nav.Item>
+                                </div>
                             </>
                         ) : (
                             <>
