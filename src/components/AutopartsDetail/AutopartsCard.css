@@ -36,14 +36,13 @@ p {
 }
 
 .card-container {
-    background-color: #604880;
-    border-radius: 50px; /* Значение радиуса, половина от ширины/высоты элемента */
-    box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.75);
-    color: #B3B8CD;
+    background-color: #ffffff;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px -10px #000000bf;
+    color: #000000;
     padding: 10px;
     position: relative;
-    width: 50%;
-    max-width: 100%;
+    max-width: 700px;
     text-align: center;
 }
 
@@ -70,17 +69,17 @@ p {
 }
 
 button.primary.ghost {
-    background-color: #7d00ff;
+    background-color: #ffffff;
     margin-top: 30px;
     color: #231E39;
 }
 
 button.primary {
     margin-top: 20px;
-    background-color: #7d00ff;
+    background-color: #ffffff;
     /*border: 1px solid #03BFCB;*/
     border-radius: 3px;
-    color: #231E39;
+    color: #000000;
     font-family: Montserrat, sans-serif;
     font-weight: 500;
     padding: 10px 25px;

@@ -19,16 +19,16 @@ const NavigationBar: FC<NavigationBarProps> = ({handleSearchValue}) => {
     };
 
     return (
-        <Navbar expand="sm" style={{ backgroundColor: '#6e608d' }}>
+        <Navbar expand="sm" style={{ backgroundColor: '#000000' }}>
             <div className='container-xl px-4 px-sm-4'>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Item>
-                            <Link to="/autoparts" className="nav-link ps-0">Запчасти</Link>
+                            <Link to="/autoparts" className="nav-link ps-0 text-white">Запчасти</Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Link to="/autoparts" className="nav-link">Поставщики</Link>
+                            <Link to="/autoparts" className="nav-link text-white">Поставщики</Link>
                         </Nav.Item>
                     </Nav>
                     <div className='container-xl px-4 px-sm-4'>
