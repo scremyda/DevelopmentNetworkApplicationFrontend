@@ -59,7 +59,7 @@ const AutopartsDetail: FC<AutopartDetailProps> = ({setPage}) => {
                     <h3>{autopart?.name}</h3>
                     <img
                         className="round"
-                        src={autopart?.image || '/default.jpg'}
+                        src={autopart?.image || '/DevelopmentNetworkApplicationFrontend/default.jpg'}
                         alt={autopart?.name}
                     />
                     <p>Бренд: {autopart?.brand}</p>
