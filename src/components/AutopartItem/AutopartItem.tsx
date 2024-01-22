@@ -49,7 +49,7 @@ const AutopartItem: FC<AutopartItemProps> = ({autopart, onClick, isServer, reloa
                 {isServer && (
                     <div className="circle" onClick={deleteClickHandler}>
                         <img
-                            src="/deleteTrash.png"
+                            src="/DevelopmentNetworkApplicationFrontend/deleteTrash.png"
                             alt="Del"
                             className="deleted-trash"
                         />
