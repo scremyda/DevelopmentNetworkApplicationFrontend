@@ -12,7 +12,7 @@ interface AutopartsListProps {
 }
 
 const AutopartsList: FC<AutopartsListProps> = ({setPage, searchValue, resetSearchValue}) => {
-    const [Autoparts, setAutoparts] = useState<IAutopart[]>([]);
+    const [autoparts, setAutoparts] = useState<IAutopart[]>([]);
     const [serverIsWork, setServerStatus] = useState<boolean>(false);
     const [reloadPage, setReloadPage] = useState<boolean>(false);
     const navigate = useNavigate();
@@ -77,12 +77,12 @@ const AutopartsList: FC<AutopartsListProps> = ({setPage, searchValue, resetSearc
     }
 
     return (
-        <List items={Autoparts} renderItem={(autopart: IAutopart) =>
+        <List items={autoparts} renderItem={(autopart: IAutopart) =>
             <AutopartItem
                 key={autopart.autopart_id}
                 autopart={autopart}
                 isServer={serverIsWork}
-                onClick={(num) => navigate(`/autoparts/${num}`)}
+                onClick={(key) => navigate(`/autoparts/${key}`)}
                 reloadPage={() => {
                     setReloadPage(true)
                 }}

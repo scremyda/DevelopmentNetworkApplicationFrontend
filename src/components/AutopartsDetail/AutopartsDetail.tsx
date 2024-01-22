@@ -53,6 +53,7 @@ const AutopartsDetail: FC<AutopartDetailProps> = ({setPage}) => {
         fetchAutopart()
             .catch((err) => {
                 console.error(err);
+                console.log(params.id);
                 const previewID = params.id !== undefined ? parseInt(params.id, 10) - 1 : 0;
                 const mockAutopart = mockAutoparts[previewID]
                 setPage(mockAutopart.name ?? "Без названия", mockAutopart.autopart_id)
@@ -63,7 +64,7 @@ const AutopartsDetail: FC<AutopartDetailProps> = ({setPage}) => {
 
     async function fetchAutopart() {
         try {
-            const response = await fetch(`http://localhost:8080/api/autoparts/${params.autopart_id}`);
+            const response = await fetch(`http://localhost:8080/api/autoparts/${params.id}`);
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -102,7 +103,6 @@ const AutopartsDetail: FC<AutopartDetailProps> = ({setPage}) => {
                     <div className="buttons">
                         <button className="primary" onClick={BackHandler}>Назад</button>
                         <div></div>
-                        <button className="primary ghost">Добавить</button>
                     </div>
                 </div>
             </div>
