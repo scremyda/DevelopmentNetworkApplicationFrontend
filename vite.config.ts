@@ -42,13 +42,9 @@ import react from '@vitejs/plugin-react'
 // })
 
 export default defineConfig({
+    server: { port: 3000 },
+    base: "DevelopmentNetworkApplicationFrontend",
     plugins: [react()],
-    base: "/DevelopmentNetworkApplicationFrontend/",
-    server: {
-        proxy: {
-            '/api': 'http://127.0.0.1:8080',
-        },
-    },
 })
 
 // export default defineConfig({
