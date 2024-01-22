@@ -40,7 +40,7 @@ const AutopartItem: FC<AutopartItemProps> = ({autopart, onClick, isServer, reloa
         <div className="card-autopart-item" data-autopart-id={autopart.autopart_id}>
             <div>
                 <img
-                    src={autopart?.image || '/default.jpg'}
+                    src={autopart?.image || '/DevelopmentNetworkApplicationFrontend/default.jpg'}
                     alt="Image"
                     className="photo"
                     onClick={() => onClick(autopart.autopart_id)}

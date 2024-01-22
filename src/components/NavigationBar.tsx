@@ -32,19 +32,19 @@ const NavigationBar: FC<NavigationBarProps> = ({handleSearchValue}) => {
                         </Nav.Item>
                     </Nav>
                     <div className='container-xl px-4 px-sm-4'>
-                    <div className='mx-auto d-flex w-100'>
-                        <Form onSubmit={handleSearch} className="d-flex align-items-center w-100">
-                            <FormControl
-                                id={'search-text-field'}
-                                type="text"
-                                name="search"
-                                placeholder="Название детали"
-                                className="me-2 w-100"
-                                aria-label="Search"
-                            />
-                            <Button type="submit" variant="outline-light">Поиск</Button>
-                        </Form>
-                    </div>
+                    {/*<div className='mx-auto d-flex w-100'>*/}
+                    {/*    <Form onSubmit={handleSearch} className="d-flex align-items-center w-100">*/}
+                    {/*        <FormControl*/}
+                    {/*            id={'search-text-field'}*/}
+                    {/*            type="text"*/}
+                    {/*            name="search"*/}
+                    {/*            placeholder="Название детали"*/}
+                    {/*            className="me-2 w-100"*/}
+                    {/*            aria-label="Search"*/}
+                    {/*        />*/}
+                    {/*        <Button type="submit" variant="outline-light">Поиск</Button>*/}
+                    {/*    </Form>*/}
+                    {/*</div>*/}
                     </div>
                 </Navbar.Collapse>
             </div>

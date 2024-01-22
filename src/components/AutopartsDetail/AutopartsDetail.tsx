@@ -12,39 +12,6 @@ const AutopartsDetail: FC<AutopartDetailProps> = ({setPage}) => {
     const [autopart, setAutopart] = useState<IAutopart | null>(null);
     const navigate = useNavigate();
 
-    // const handleDelete = () => {
-    //     navigate('/autoparts');
-    //     DeleteData()
-    //         .then(() => {
-    //             console.log(`Autopart with ID ${autopart?.autopart_id} successfully deleted.`);
-    //         })
-    //         .catch(error => {
-    //             console.error(`Failed to delete autopart with ID ${autopart?.autopart_id}: ${error}`);
-    //             navigate('/autoparts');
-    //         });
-    // }
-
-    // const DeleteData = async () => {
-    //     try {
-    //         const response = await fetch('http://localhost:8080/api/autoparts', {
-    //             method: 'DELETE',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         });
-    //
-    //         if (response.status === 200) {
-    //             console.log('Autopart успешно удален');
-    //             window.location.reload();
-    //         } else {
-    //             console.error('Произошла ошибка при удалении autopart');
-    //         }
-    //
-    //     } catch (error) {
-    //         console.error('Произошла ошибка сети', error);
-    //     }
-    // }
-
     const BackHandler = () => {
         navigate('/autoparts');
     }

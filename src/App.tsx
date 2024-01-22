@@ -30,6 +30,7 @@ function App() {
                                    setPage={() => addPage([AutopartsPage])}
                                    searchValue={searchValue}
                                    resetSearchValue={resetSearchValue}
+                                   handleSearchValue={(value) => setSearchValue(value)}
                                />
                            }
                     />
