@@ -8,7 +8,7 @@ interface AutopartState {
     error: string;
     success: string;
     count: number;
-    draftID: number;
+    //draftID: number;
 }
 
 const initialState: AutopartState = {
@@ -18,7 +18,7 @@ const initialState: AutopartState = {
     error: '',
     success: '',
     count: 0.0,
-    draftID: 0
+   // draftID: 0
 }
 
 export const autopartSlice = createSlice({
@@ -40,9 +40,9 @@ export const autopartSlice = createSlice({
             state.error = action.payload
             state.success = ''
         },
-        setDraft(state, action: PayloadAction<number>) {
-            state.draftID = action.payload
-        },
+        // setDraft(state, action: PayloadAction<number>) {
+        //     state.draftID = action.payload
+        // },
         autopartAddedIntoAssembly(state, action: PayloadAction<string[]>) {
             state.isLoading = false
             state.error = action.payload[0]

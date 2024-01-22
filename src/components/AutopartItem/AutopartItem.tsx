@@ -11,15 +11,17 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 interface AutopartItemProps {
     autopart: IAutopart;
     onClick: (num: number) => void,
-    isServer: boolean
+    isServer: boolean,
+    setDraftID: (draftID: number | null) => void,
 }
 
-const AutopartItem: FC<AutopartItemProps> = ({autopart, onClick, isServer}) => {
+const AutopartItem: FC<AutopartItemProps> = ({autopart, onClick, isServer, setDraftID})  => {
 
     const dispatch = useAppDispatch()
     const {isAuth} = useAppSelector(state => state.userReducer)
-    const plusClickHandler = () => {
-        dispatch(addAutopartIntoAssembly(autopart.autopart_id, 0.0, autopart.name ?? "Без названия"))
+    const plusClickHandler = async () => {
+        const id = await dispatch(addAutopartIntoAssembly(autopart.autopart_id, 0.0, autopart.name ?? "Без названия"))
+        setDraftID(id);
     }
 
     return (

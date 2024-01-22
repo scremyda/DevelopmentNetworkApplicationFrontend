@@ -17,7 +17,7 @@ import {userSlice} from "./UserSlice.ts";
 
 
 export const fetchAutoparts = (searchValue?: string, makeLoading: boolean = true) => async (dispatch: AppDispatch) => {
-    const accessToken = Cookies.get('jwtToken')
+    const accessToken = Cookies.get('jwtToken');
     dispatch(userSlice.actions.setAuthStatus(accessToken != null && accessToken != ""));
     const config = {
         method: "get",
@@ -25,18 +25,22 @@ export const fetchAutoparts = (searchValue?: string, makeLoading: boolean = true
         headers: {
             Authorization: `Bearer ${accessToken ?? ''}`,
         },
-    }
+    };
 
     try {
         if (makeLoading) {
-            dispatch(autopartSlice.actions.autopartsFetching())
+            dispatch(autopartSlice.actions.autopartsFetching());
         }
         const response = await axios<IAutopartWithDraft>(config);
-        dispatch(autopartSlice.actions.autopartsFetched([response.data.autoparts, response.data.draft_id]))
+        const draftId = response.data.draft_id;
+        dispatch(autopartSlice.actions.autopartsFetched([response.data.autoparts, draftId]));
+
+        return draftId;
     } catch (e) {
         dispatch(autopartSlice.actions.autopartsFetched([filterMockData(searchValue), 0]))
+        return null;
     }
-}
+};
 
 export const updateAutopartInfo = (
     id: number,
@@ -130,7 +134,7 @@ export const deleteAutopart = (autopartId: number) => async (dispatch: AppDispat
 }
 
 
-export const addAutopartIntoAssembly = (autopartId: number, count: number, autopartName: string) => async (dispatch: AppDispatch) => {
+export const addAutopartIntoAssembly = (autopartId: number, count: number, autopartName: string) => async (dispatch: AppDispatch): Promise<number | null> => {
     const accessToken = Cookies.get('jwtToken');
     const config = {
         method: "post",
@@ -149,12 +153,11 @@ export const addAutopartIntoAssembly = (autopartId: number, count: number, autop
         const errorText = response.data.description ?? ""
         const successText = errorText || `Автозапчасть "${autopartName}" добавлена`
         dispatch(autopartSlice.actions.autopartAddedIntoAssembly([errorText, successText]));
-        dispatch(autopartSlice.actions.setDraft(response.data.id))
-        setTimeout(() => {
-            dispatch(autopartSlice.actions.autopartAddedIntoAssembly(['', '']));
-        }, 6000);
+
+        return response.data.id
     } catch (e) {
         dispatch(autopartSlice.actions.autopartsFetchedError(`${e}`))
+        return null;
     }
 }
 
@@ -176,7 +179,7 @@ export const deleteAssembly = (id: number) => async (dispatch: AppDispatch) => {
         const response = await axios(config);
         const errorText = response.data.description ?? ""
         const successText = errorText || `Заявка удалена`
-        dispatch(autopartSlice.actions.setDraft(0))
+        //dispatch(autopartSlice.actions.setDraft(0))
         dispatch(assemblySlice.actions.assembliesUpdated([errorText, successText]));
         if (successText != "") {
             dispatch(fetchAssemblies())
@@ -211,7 +214,7 @@ export const makeAssembly = (id: number) => async (dispatch: AppDispatch) => {
         const errorText = response.data.description ?? ""
         const successText = errorText || `Заявка создана`
         dispatch(assemblySlice.actions.assembliesUpdated([errorText, successText]));
-        dispatch(autopartSlice.actions.setDraft(0))
+        //dispatch(autopartSlice.actions.setDraft(0))
         if (successText != "") {
             dispatch(fetchAssemblies())
         }
@@ -276,25 +279,25 @@ export const fetchAssemblies = () => async (dispatch: AppDispatch) => {
     }
 }
 
-export const fetchCurrentAssembly = () => async (dispatch: AppDispatch) => {
-    interface ISingleAssemblyResponse {
-        assemblies: number,
-    }
-
-    const accessToken = Cookies.get('jwtToken');
-    dispatch(userSlice.actions.setAuthStatus(accessToken != null && accessToken != ""));
-    try {
-        const response = await axios.get<ISingleAssemblyResponse>(`/api/assemblies/current`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        });
-        dispatch(autopartSlice.actions.setDraft(response.data.assemblies))
-
-    } catch (e) {
-        dispatch(assemblySlice.actions.assembliesFetchedError(`${e}`))
-    }
-}
+// export const fetchCurrentAssembly = () => async (dispatch: AppDispatch) => {
+//     interface ISingleAssemblyResponse {
+//         assemblies: number,
+//     }
+//
+//     const accessToken = Cookies.get('jwtToken');
+//     dispatch(userSlice.actions.setAuthStatus(accessToken != null && accessToken != ""));
+//     try {
+//         const response = await axios.get<ISingleAssemblyResponse>(`/api/assemblies/current`, {
+//             headers: {
+//                 Authorization: `Bearer ${accessToken}`
+//             }
+//         });
+//         dispatch(autopartSlice.actions.setDraft(response.data.assemblies))
+//
+//     } catch (e) {
+//         dispatch(assemblySlice.actions.assembliesFetchedError(`${e}`))
+//     }
+// }
 
 export const fetchAssemblyById = (
     id: string,

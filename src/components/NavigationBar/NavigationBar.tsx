@@ -13,6 +13,7 @@ import {userSlice} from "../../store/reducers/UserSlice.ts";
 import {FormLabel} from "react-bootstrap";
 import './NavigationBar.css'
 // import {defaultImage} from "../../models/models.ts";
+import {searchSlice} from "../../store/reducers/SearchSlice.ts";
 import {progressSlice} from "../../store/reducers/ProgressData.ts";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
@@ -22,8 +23,8 @@ const NavigationBar = () => {
     const {isLoading, success, error} = useAppSelector(state => state.userReducer)
     const role = Cookies.get('role')
     const jwtToken = Cookies.get('jwtToken')
-    const {draftID} = useAppSelector(state => state.autopartReducer)
-    const navigate = useNavigate()
+    // const {draftID} = useAppSelector(state => state.autopartReducer)
+    // const navigate = useNavigate()
     const userName = Cookies.get('userName')
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,6 +40,7 @@ const NavigationBar = () => {
             Cookies.remove(cookieName);
         });
         dispatch(userSlice.actions.setAuthStatus(false))
+        dispatch(searchSlice.actions.reset())
     };
 
     return (
@@ -80,19 +82,19 @@ const NavigationBar = () => {
                                     </Nav.Item>
                                 </Nav>
                                 <Nav>
-                                    <Nav.Item className="mx-2">
-                                        <FontAwesomeIcon
-                                            icon={faShoppingCart}
-                                            className={`my-2 mr-2 ${draftID === 0 ? 'disabled' : ''}`}
-                                            onClick={() => draftID !== 0 && navigate(`assemblies/${draftID}`)}
-                                            style={{
-                                                cursor: draftID === 0 ? 'not-allowed' : 'pointer',
-                                                fontSize: draftID === 0 ? '1.5em' : '2em', // Измените размер в зависимости от условия
-                                                color: draftID === 0 ? '#777777' : 'white', // Измените цвет в зависимости от условия
-                                                transition: 'color 0.3s ease', // Добавьте плавный переход цвета
-                                            }}
-                                        />
-                                    </Nav.Item>
+                                    {/*<Nav.Item className="mx-2">*/}
+                                    {/*    <FontAwesomeIcon*/}
+                                    {/*        icon={faShoppingCart}*/}
+                                    {/*        className={`my-2 mr-2 ${draftID === 0 ? 'disabled' : ''}`}*/}
+                                    {/*        onClick={() => draftID !== 0 && navigate(`assemblies/${draftID}`)}*/}
+                                    {/*        style={{*/}
+                                    {/*            cursor: draftID === 0 ? 'not-allowed' : 'pointer',*/}
+                                    {/*            fontSize: draftID === 0 ? '1.5em' : '2em', // Измените размер в зависимости от условия*/}
+                                    {/*            color: draftID === 0 ? '#777777' : 'white', // Измените цвет в зависимости от условия*/}
+                                    {/*            transition: 'color 0.3s ease', // Добавьте плавный переход цвета*/}
+                                    {/*        }}*/}
+                                    {/*    />*/}
+                                    {/*</Nav.Item>*/}
                                 </Nav>
                                 <div className="avatar-container d-flex align-items-center">
                                     <Nav.Item className="mx-2 mt-2">

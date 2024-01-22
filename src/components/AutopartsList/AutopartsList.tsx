@@ -14,13 +14,17 @@ import FormControl from "react-bootstrap/FormControl";
 import {searchSlice} from "../../store/reducers/SearchSlice.ts";
 import {RootState} from "../../store/store.ts";
 import {useSelector} from "react-redux";
-// import Button from "react-bootstrap/Button";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import Nav from "react-bootstrap/Nav";
 
 interface AutopartsListProps {
     setPage: () => void
+    draftID: number | null
+    setDraftID: (draftID: number | null) => void;
 }
 
-const AutopartsList: FC<AutopartsListProps> = ({setPage}) => {
+const AutopartsList: FC<AutopartsListProps> = ({setPage, draftID, setDraftID}) => {
     const dispatch = useAppDispatch()
     const {autoparts, isLoading, error, success /*,draftID*/} = useAppSelector(state => state.autopartReducer)
     const navigate = useNavigate();
@@ -32,8 +36,12 @@ const AutopartsList: FC<AutopartsListProps> = ({setPage}) => {
     }
 
     useEffect(() => {
-        setPage()
-        dispatch(fetchAutoparts(searchText))
+        setPage();
+        const fetchAutopartsAndSetDraft = async () => {
+            const draftId = await dispatch(fetchAutoparts(searchText));
+            setDraftID(draftId);
+        };
+        fetchAutopartsAndSetDraft();
     }, [dispatch]);
 
     if (!autoparts) {
@@ -42,6 +50,19 @@ const AutopartsList: FC<AutopartsListProps> = ({setPage}) => {
 
     return (
         <>
+            <Nav.Item className="mx-2">
+                <FontAwesomeIcon
+                    icon={faShoppingCart}
+                    className={`my-2 mr-2 ${draftID === 0 ? 'disabled' : ''}`}
+                    onClick={() => draftID !== 0 && navigate(`/assemblies/${draftID}`)}
+                    style={{
+                        cursor: draftID === 0 ? 'not-allowed' : 'pointer',
+                        fontSize: draftID === 0 ? '1.5em' : '2em', // Измените размер в зависимости от условия
+                        color: draftID === 0 ? '#777777' : 'black', // Измените цвет в зависимости от условия
+                        transition: 'color 0.3s ease', // Добавьте плавный переход цвета
+                    }}
+                />
+            </Nav.Item>
             <Form onSubmit={handleSearch} className="d-flex">
                 <FormControl
                     id={'search-text-field'}
@@ -66,6 +87,7 @@ const AutopartsList: FC<AutopartsListProps> = ({setPage}) => {
                     autopart={autopart}
                     isServer={true}
                     onClick={(num) => navigate(`/autoparts/${num}`)}
+                    setDraftID={setDraftID}
                 />
             }
             />
