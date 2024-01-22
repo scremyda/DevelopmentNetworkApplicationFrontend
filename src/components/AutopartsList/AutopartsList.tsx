@@ -34,7 +34,7 @@ const AutopartsList: FC<AutopartsListProps> = ({setPage, searchValue, resetSearc
     }, [reloadPage]);
 
     const fetchAutoparts = async () => {
-        const url = 'http://localhost:8080/api/autoparts/get-all' + `?name=${searchValue ?? ''}`;
+        const url = 'http://localhost:8080/api/autoparts/get-all' + `?autopart=${searchValue ?? ''}`;
 
         const response = await fetch(url, {
             method: "GET",
