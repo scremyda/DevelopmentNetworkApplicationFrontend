@@ -47,7 +47,7 @@ const AutopartsList: FC<AutopartsListProps> = ({setPage}) => {
                     id={'search-text-field'}
                     type="text"
                     value={searchText}
-                    placeholder="Поиск компаний"
+                    placeholder="Поиск автозапчастей"
                     className="me-2"
                     aria-label="Search"
                     onChange={(e) => dispatch(searchSlice.actions.setType(e.target.value))}

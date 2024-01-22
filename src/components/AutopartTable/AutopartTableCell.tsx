@@ -12,7 +12,7 @@ const AutopartTableCell: FC<AutopartTableCellProps> = ({autopartData}) => {
     const dispatch = useAppDispatch()
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(autopartData.name ?? "");
-    const [price, setPrice] = useState(autopartData.price ?? "");
+    const [price, setPrice] = useState(autopartData.price ?? 0);
     const [description, setDescription] = useState(autopartData.description ?? "");
     const [status, setStatus] = useState(autopartData.status);
     // const [statusId, setStatusId] = useState(`${autopartData.status}`);
@@ -46,7 +46,8 @@ const AutopartTableCell: FC<AutopartTableCellProps> = ({autopartData}) => {
 
     const handleInputChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {value} = e.target;
-        setPrice(value)
+        const priceAsNumber = parseFloat(value);
+        setPrice(priceAsNumber);
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -78,12 +79,12 @@ const AutopartTableCell: FC<AutopartTableCellProps> = ({autopartData}) => {
                         />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formCompanyIIN" className='mt-2'>
-                        <Form.Label>Название автозапчасти</Form.Label>
+                        <Form.Label>Цена</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="Введите Цену"
-                            name="name"
-                            value={name}
+                            name="price"
+                            value={price}
                             onChange={handleInputChangePrice}
                         />
                     </Form.Group>

@@ -14,6 +14,7 @@ import Cookies from "js-cookie";
 import {IAssembly} from "../../models/models.ts";
 import debounce from 'lodash/debounce';
 import ru from 'date-fns/locale/ru';
+import {searchSlice} from "../../store/reducers/SearchSlice.ts";
 interface RequestViewProps {
     setPage: () => void;
 }
@@ -29,9 +30,10 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
     const dispatch = useAppDispatch();
     const {assembly, error, success} = useAppSelector((state) => state.assemblyReducer);
     const {isAuth} = useAppSelector((state) => state.userReducer);
-    const [startDate, setStartDate] = useState<Date | null>(null);
-    const [endDate, setEndDate] = useState<Date | null>(null);
-    const [selectedStatus, setSelectedStatus] = useState<string>('');
+    const {startDate, endDate,selectedStatus} = useAppSelector((state) => state.searchReducer);
+    //const [startDate, setStartDate] = useState<Date | null>(null);
+    //const [endDate, setEndDate] = useState<Date | null>(null);
+    //const [selectedStatus, setSelectedStatus] = useState<string>('');
     const role = Cookies.get('role')
     const [filteredAssemblies, setFilteredAssemblies] = useState<IAssembly[] | null>(null);
     const [filteredByUsers, setFilteredUsers] = useState<IAssembly[] | null>(null);
@@ -40,6 +42,7 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
     useEffect(() => {
         setPage();
         dispatch(fetchAssemblies());
+        handleFilter()
 
         const debouncedHandleFilter = debounce(handleFilter, 1000); // Настройте время задержки по своему усмотрению
 
@@ -62,9 +65,8 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
     }, [startDate, endDate, selectedStatus]);
 
     const resetFilter = () => {
-        setStartDate(null)
-        setEndDate(null)
-        setSelectedStatus('')
+        dispatch(searchSlice.actions.reset())
+        handleFilter()
     }
 
     const handleFilter = () => {
@@ -100,8 +102,8 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
         function isDateInRange(date: string): boolean {
             const bdDateString = formatDate2(date)
             const bdDate = new Date(bdDateString)
-            const start = startDateString ? new Date(startDateString) : new Date('0001-01-01')
-            const end = endDateString ? new Date(endDateString) : new Date('2033-12-21')
+            const start = startDateString ? new Date(startDateString) : new Date('0001-01-01 00:00:01')
+            const end = endDateString ? new Date(endDateString) : new Date('2033-12-21 23:59:00')
             return (!startDate || bdDate >= start) && (!endDate || bdDate <= end)
         }
 
@@ -176,7 +178,11 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
                             <label>Дата создания с:</label>
                             <DatePicker
                                 selected={startDate}
-                                onChange={(date) => setStartDate(date)}
+                                onChange={(date) => {
+                                    if (date) {
+                                        dispatch(searchSlice.actions.setDateStart(date));
+                                    }
+                                }}
                                 className="custom-datepicker"
                                 popperPlacement="bottom-start"
                             />
@@ -184,7 +190,11 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
                             <label>Дата окончания по:</label>
                             <DatePicker
                                 selected={endDate}
-                                onChange={(date) => setEndDate(date)}
+                                onChange={(date) => {
+                                    if (date) {
+                                        dispatch(searchSlice.actions.setDateEnd(date));
+                                    }
+                                }}
                                 className="custom-datepicker"
                                 popperPlacement="bottom-start"
                             />
@@ -195,7 +205,7 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
                                     <Form.Select
                                         className='mb-2'
                                         value={selectedStatus || ""}
-                                        onChange={(e) => setSelectedStatus(e.target.value)}
+                                        onChange={(e) => dispatch(searchSlice.actions.setStatus(e.target.value))}
                                     >
                                         <option value="">Выберите статус</option>
                                         <option value="сформирован">Сформирован</option>
@@ -222,9 +232,9 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
                         {/*<th>ID</th>*/}
                         <th>Название поставщика</th>
                         <th>Статус переговоров</th>
-                        <th>Дата создания</th>
-                        <th>Дата начала процесса</th>
-                        <th>Дата принятия</th>
+                        <th>Дата и время создания</th>
+                        <th>Дата и время начала процесса</th>
+                        <th>Дата и время принятия</th>
                         <th>Автор</th>
                         {role == '2' &&
                             <th>Модератор</th>
@@ -288,14 +298,24 @@ const RequestView: FC<RequestViewProps> = ({setPage}) => {
 export default RequestView;
 
 function checkData(data: string): string {
-    if (data == '0001-01-01T00:00:00Z') {
-        return 'Дата не задана'
+    console.log(data);
+    if (data === '0001-01-01T02:30:17+02:30') {
+        return 'Дата не задана';
     }
-    const formattedDate = (dateString: string) => {
+
+    const formattedDate = (dateString: string): string => {
         const date = new Date(dateString);
-        return format(date, 'dd.MM.yyyy');
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+
+        return `${day}-${month}-${year} ${hours}:${minutes}`;
     };
 
     const formatted = formattedDate(data);
-    return formatted
+    return formatted;
 }
+
+
